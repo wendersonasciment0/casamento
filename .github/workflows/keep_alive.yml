@@ -2,8 +2,8 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    # Executa à meia-noite (00:00 UTC) aos Domingos (0) e Sextas-feiras (5)
-    - cron: '0 0 * * 0,5'
+    # Executa à meia-noite (00:00 UTC) aos Domingos (0), Quartas-feiras (3) e Sextas-feiras (5)
+    - cron: '0 0 * * 0,3,5'
   workflow_dispatch: # Permite ativar manualmente o ping pelo painel do GitHub
 
 jobs:
