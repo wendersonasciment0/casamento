@@ -128,6 +128,51 @@ export default function ListaPresentes({
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Handle PIX payment confirmation (called only when user clicks "Já Paguei")
+  const handlePixConfirm = async () => {
+    const giftId = isHoneymoonFund ? 'gift-custom-honeymoon' : selectedGift?.id;
+    const finalAmount = isHoneymoonFund ? parseFloat(customAmount) : selectedGift?.price || 0;
+    const finalGiftName = isHoneymoonFund ? 'Cota de Lua de Mel' : selectedGift?.name || '';
+    let targetGiftId = giftId || '';
+    if (isHoneymoonFund) {
+      const honeymoonGift = gifts.find(g => g.name.toLowerCase().includes('cota') || g.id.includes('custom-honeymoon'));
+      targetGiftId = honeymoonGift ? honeymoonGift.id : 'gift-36';
+    }
+    try {
+      const res = await fetch(`/api/gifts/${targetGiftId}/buy`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ buyerName, buyerEmail, paymentMethod: 'pix', amount: finalAmount })
+      });
+      if (res.ok) {
+        const formattedPrice = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(finalAmount);
+        const guestEmailSim = {
+          id: `sim-g-${Date.now()}`,
+          recipient: buyerEmail,
+          subject: `[Casamento de Letielly & Wenderson] Obrigado pelo seu presente! 🎁`,
+          sender: `Letielly & Wenderson <casamento@noivos.com>`,
+          body: `Olá ${buyerName},\n\nAgradecemos imensamente pelo seu gesto de carinho ao nos presentear com:\n🎁 ${finalGiftName} (${formattedPrice})\n\nSua contribuição via PIX foi recebida com sucesso!\n\nCom carinho,\nLetielly & Wenderson`
+        };
+        const coupleEmailSim = {
+          id: `sim-c-${Date.now()}`,
+          recipient: `${pixHolder.toLowerCase().replace(/\s+/g, '')}@noivos.com`,
+          subject: `[Novo Presente Recebido!] ${buyerName} enviou: ${finalGiftName}`,
+          sender: `Gestão de Celebração <sistema@casamento.com>`,
+          body: `Olá Letielly & Wenderson,\n\nVocês receberam um novo presente!\nConvidado(a): ${buyerName}\nPresente: ${finalGiftName}\nValor: ${formattedPrice}`
+        };
+        setSessionEmails(prev => [coupleEmailSim, guestEmailSim, ...prev]);
+        setActiveModal('success');
+        fetchGifts();
+        onPurchaseSuccess();
+      } else {
+        alert('Erro ao registrar o presente. Tente novamente.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Erro de conexão. Tente novamente.');
+    }
+  };
+
   // Submit simulated transaction to API
   const handleConfirmPurchase = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -734,61 +779,12 @@ export default function ListaPresentes({
                     </div>
 
                     <div className="border-t border-olive/10 pt-5 space-y-3">
-                      <p className="text-[11px] font-label text-charcoal/50 uppercase tracking-widest mb-3">Ambiente de Testes Simulado</p>
                       <button
                         type="button"
-                        onClick={async () => {
-                          // Bypass the loader
-                          // Simulated POST with complete request
-                          const giftId = isHoneymoonFund ? 'gift-custom-honeymoon' : selectedGift?.id;
-                          const finalAmount = isHoneymoonFund ? parseFloat(customAmount) : selectedGift?.price || 0;
-                          const finalGiftName = isHoneymoonFund ? `Cota de Lua de Mel` : selectedGift?.name || '';
-                          let targetGiftId = giftId || '';
-                          if (isHoneymoonFund) {
-                            const honeymoonGift = gifts.find(g => g.name.toLowerCase().includes('cota') || g.id.includes('custom-honeymoon'));
-                            targetGiftId = honeymoonGift ? honeymoonGift.id : 'gift-36';
-                          }
-                          try {
-                            const res = await fetch(`/api/gifts/${targetGiftId}/buy`, {
-                              method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json'
-                              },
-                              body: JSON.stringify({
-                                buyerName,
-                                buyerEmail,
-                                paymentMethod: 'pix',
-                                amount: finalAmount
-                              })
-                            });
-                            if (res.ok) {
-                              const formattedPrice = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(finalAmount);
-                              const guestEmailSim = {
-                                id: `sim-g-${Date.now()}`,
-                                recipient: buyerEmail,
-                                subject: `[Casamento de Letielly & Wenderson] Obrigado pelo seu presente! 🎁`,
-                                sender: `Letielly & Wenderson <casamento@noivos.com>`,
-                                body: `Olá ${buyerName},\n\nAgradecemos imensamente pelo seu gesto de carinho ao nos presentear com:\n🎁 ${finalGiftName} (${formattedPrice})\n\nSua contribuição via PIX foi confirmada com sucesso!\n\nCom carinho,\nLetielly & Wenderson`
-                              };
-                              const coupleEmailSim = {
-                                id: `sim-c-${Date.now()}`,
-                                recipient: `${pixHolder.toLowerCase().replace(/\s+/g, '')}@noivos.com`,
-                                subject: `[Novo Presente Recebido!] ${buyerName} enviou: ${finalGiftName}`,
-                                sender: `Gestão de Celebração <sistema@casamento.com>`,
-                                body: `Olá Letielly & Wenderson,\n\nVocês receberam um novo presente na lista virtual!\nConvidado(a): ${buyerName}\nPresente: ${finalGiftName}\nValor: ${formattedPrice}\n\nO valor foi arrecadado em dinheiro para vocês!`
-                              };
-                              setSessionEmails(prev => [coupleEmailSim, guestEmailSim, ...prev]);
-                              setActiveModal('success');
-                              fetchGifts();
-                              onPurchaseSuccess();
-                            }
-                          } catch (err) {
-                            console.error(err);
-                          }
-                        }}
+                        onClick={handlePixConfirm}
                         className="w-full bg-terracotta hover:bg-terracotta-hover text-white font-label tracking-widest text-xs uppercase font-bold py-3 px-4 rounded-sm"
                       >
-                        ✓ JÁ PAGUEI — CONFIRMAR PRESENTE
+                        ✓ Já realizei o pagamento
                       </button>
                       <button
                         type="button"
@@ -802,8 +798,7 @@ export default function ListaPresentes({
                 ) : (
                   <div className="py-8 text-center space-y-4">
                     <div className="w-12 h-12 border-4 border-terracotta border-t-transparent rounded-full animate-spin mx-auto" />
-                    <p className="text-sm font-label uppercase tracking-widest text-charcoal/60">Processando transação com cartão de crédito...</p>
-                    <p className="text-xs font-sans text-charcoal/50">Esta é uma simulação segura. Não faremos débitos reais.</p>
+                    <p className="text-sm font-label uppercase tracking-widest text-charcoal/60">Processando pagamento...</p>
                   </div>
                 )}
               </div>
