@@ -1,0 +1,21 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Executa à meia-noite (00:00 UTC) aos Domingos (0) e Sextas-feiras (5)
+    - cron: '0 0 * * 0,5'
+  workflow_dispatch: # Permite ativar manualmente o ping pelo painel do GitHub
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping and Update Supabase Heartbeat
+        run: |
+          TIMESTAMP=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo "Enviando batimento para o Supabase com timestamp: $TIMESTAMP"
+          curl -X PATCH "${{ secrets.SUPABASE_URL }}/rest/v1/supabase_heartbeat?id=eq.1" \
+            -H "apikey: ${{ secrets.SUPABASE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"updated_at\": \"$TIMESTAMP\"}"

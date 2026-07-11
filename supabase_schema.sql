@@ -79,6 +79,14 @@ CREATE TABLE IF NOT EXISTS public.notifications (
     sent_at text NOT NULL
 );
 
+-- 6. TABELA: supabase_heartbeat
+-- Utilizada unicamente pela automação do GitHub Actions no ping para impedir inatividade do Supabase.
+CREATE TABLE IF NOT EXISTS public.supabase_heartbeat (
+    id integer PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+    updated_at timestamp with time zone DEFAULT timezone('utc'::text, now())
+);
+INSERT INTO public.supabase_heartbeat (id) VALUES (1) ON CONFLICT (id) DO NOTHING;
+
 -- =====================================
 -- (OPCIONAL) PROJETO EM PRODUÇÃO: SEGURANÇA E ROW LEVEL SECURITY (RLS)
 -- =====================================
