@@ -23,8 +23,8 @@ export default function App() {
     try {
       const res = await fetch('/api/wedding-info');
       const data = await res.json();
-      if (data.weddingInfo) {
-        setWeddingInfo(data.weddingInfo);
+      if (data.info) {
+        setWeddingInfo(data.info);
       }
     } catch (e) {
       console.error('Error fetching wedding info:', e);
@@ -71,6 +71,8 @@ export default function App() {
 
   const handleUpdateWeddingInfo = (updatedInfo: WeddingInfo) => {
     setWeddingInfo(updatedInfo);
+    // Re-fetch from Supabase to ensure local state reflects persisted data
+    fetchWeddingInfo();
   };
 
   if (loading) {

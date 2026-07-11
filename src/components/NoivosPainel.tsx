@@ -246,14 +246,18 @@ export default function NoivosPainel({
         body: JSON.stringify(settingsForm)
       });
 
-      if (res.ok) {
-        onUpdateWeddingInfo(settingsForm);
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        // Use the server-confirmed data to update the parent state
+        onUpdateWeddingInfo(data.info || settingsForm);
         alert('Configurações do casamento salvas com sucesso!');
       } else {
-        alert('Erro ao atualizar configurações.');
+        alert(`Erro ao atualizar configurações: ${data.error || res.statusText}`);
       }
     } catch (err) {
       console.error(err);
+      alert('Erro de conexão ao salvar configurações.');
     }
   };
 
