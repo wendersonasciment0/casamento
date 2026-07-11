@@ -336,7 +336,8 @@ const defaultWeddingInfo: WeddingInfo = {
   pixKey: "wenderson.dnsilva@gmail.com",
   pixHolder: "Wenderson Silva",
   adminPin: "1234",
-  hasBannerImage: true
+  hasBannerImage: true,
+  notificationEmail: "letielly&wenderson@casamento.com"
 };
 
 // ==========================================
@@ -358,7 +359,8 @@ function dbToWeddingInfo(row: any): WeddingInfo {
     pixKey: row.pix_key,
     pixHolder: row.pix_holder,
     adminPin: row.admin_pin,
-    hasBannerImage: row.has_banner_image
+    hasBannerImage: row.has_banner_image,
+    notificationEmail: row.notification_email
   };
 }
 
@@ -378,7 +380,8 @@ function weddingInfoToDb(info: WeddingInfo): any {
     pix_key: info.pixKey,
     pix_holder: info.pixHolder,
     admin_pin: info.adminPin,
-    has_banner_image: info.hasBannerImage
+    has_banner_image: info.hasBannerImage,
+    notification_email: info.notificationEmail || "letielly&wenderson@casamento.com"
   };
 }
 
@@ -772,7 +775,8 @@ Mensagem: "${message || "Sem mensagem"}"
 Atenciosamente,
 Sistema de Gestão de Celebração`;
 
-    await addNotificationDb("rsvp", `${wedding.noivoName.toLowerCase()}&${wedding.noivaName.toLowerCase()}@casamento.com`, coupleSubject, coupleBody);
+    const targetEmail = wedding.notificationEmail || `${wedding.noivoName.toLowerCase()}&${wedding.noivaName.toLowerCase()}@casamento.com`;
+    await addNotificationDb("rsvp", targetEmail, coupleSubject, coupleBody);
 
     res.json({ success: true, rsvp: newRsvp });
   } catch (err: any) {
@@ -839,6 +843,47 @@ app.get("/api/gifts", async (req, res) => {
   }
 });
 
+// POST Upload de Imagem (Admin apenas)
+app.post("/api/upload", async (req, res) => {
+  try {
+    if (!(await verifyAdminPin(req))) {
+      return res.status(401).json({ error: "Acesso não autorizado." });
+    }
+    const { filename, contentType, base64Data } = req.body;
+    if (!filename || !contentType || !base64Data) {
+      return res.status(400).json({ error: "Parâmetros filename, contentType e base64Data são obrigatórios." });
+    }
+
+    // Decode base64 data to buffer
+    const base64Body = base64Data.split(';base64,').pop() || base64Data;
+    const buffer = Buffer.from(base64Body, 'base64');
+    
+    // Upload image to Supabase storage
+    const pathName = `public/${Date.now()}-${filename}`;
+    const { data: uploadResult, error } = await supabase.storage
+      .from('gift-images')
+      .upload(pathName, buffer, {
+        contentType,
+        upsert: true
+      });
+
+    if (error) {
+      console.error("Erro ao fazer upload no Supabase Storage:", error);
+      return res.status(500).json({ error: "Erro ao fazer upload da imagem." });
+    }
+
+    // Obter URL pública
+    const { data: publicUrlData } = supabase.storage
+      .from('gift-images')
+      .getPublicUrl(pathName);
+
+    res.json({ success: true, imageUrl: publicUrlData.publicUrl });
+  } catch (err: any) {
+    console.error("Erro no processamento do upload:", err);
+    res.status(500).json({ error: "Erro interno no servidor de upload." });
+  }
+});
+
 // POST Adicionar presentes (Admin apenas)
 app.post("/api/gifts", async (req, res) => {
   try {
@@ -895,10 +940,29 @@ app.put("/api/gifts/:id", async (req, res) => {
     }
 
     const currentGift = dbToGift(existing);
+    const { name, price, category, imageUrl, status, buyerName, buyerEmail } = req.body;
+
     const updatedGift: Gift = {
-      ...currentGift,
-      ...req.body
+      ...currentGift
     };
+
+    if (name !== undefined) updatedGift.name = name;
+    if (price !== undefined) updatedGift.price = parseFloat(price);
+    if (category !== undefined) updatedGift.category = category;
+    if (imageUrl !== undefined) updatedGift.imageUrl = imageUrl;
+
+    if (status !== undefined) {
+      updatedGift.status = status;
+      if (status === 'disponivel') {
+        updatedGift.buyerName = undefined;
+        updatedGift.buyerEmail = undefined;
+        updatedGift.purchasedAt = undefined;
+      } else if (status === 'comprado') {
+        updatedGift.buyerName = buyerName || currentGift.buyerName || "Adquirido Presencialmente";
+        updatedGift.buyerEmail = buyerEmail || currentGift.buyerEmail || "noivos@casamento.com";
+        updatedGift.purchasedAt = currentGift.purchasedAt || new Date().toISOString();
+      }
+    }
 
     const { error } = await supabase
       .from("gifts")
@@ -1050,7 +1114,8 @@ Parabéns! O saldo total arrecadado já foi atualizado no seu painel de noivos.
 Abraços,
 Sistema de Gestão de Presentes`;
 
-    await addNotificationDb("purchase_couple", `${wedding.noivoName.toLowerCase()}&${wedding.noivaName.toLowerCase()}@casamento.com`, coupleSubject, coupleBody);
+    const targetEmail = wedding.notificationEmail || `${wedding.noivoName.toLowerCase()}&${wedding.noivaName.toLowerCase()}@casamento.com`;
+    await addNotificationDb("purchase_couple", targetEmail, coupleSubject, coupleBody);
 
     res.json({ success: true, gift, purchase: newPurchase });
   } catch (err: any) {

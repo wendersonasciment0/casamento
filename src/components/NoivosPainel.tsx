@@ -47,6 +47,10 @@ export default function NoivosPainel({
   const [giftPrice, setGiftPrice] = useState('');
   const [giftCategory, setGiftCategory] = useState('Cozinha');
   const [giftImageUrl, setGiftImageUrl] = useState('');
+  const [giftStatus, setGiftStatus] = useState<'disponivel' | 'comprado'>('disponivel');
+  const [buyerName, setBuyerName] = useState('');
+  const [buyerEmail, setBuyerEmail] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   // Settings Form State
   const [settingsForm, setSettingsForm] = useState<WeddingInfo>({ ...weddingInfo });
@@ -111,12 +115,18 @@ export default function NoivosPainel({
       setGiftPrice(String(gift.price));
       setGiftCategory(gift.category);
       setGiftImageUrl(gift.imageUrl);
+      setGiftStatus(gift.status);
+      setBuyerName(gift.buyerName || '');
+      setBuyerEmail(gift.buyerEmail || '');
     } else {
       setEditingGift(null);
       setGiftName('');
       setGiftPrice('');
       setGiftCategory('Cozinha');
       setGiftImageUrl('');
+      setGiftStatus('disponivel');
+      setBuyerName('');
+      setBuyerEmail('');
     }
     setIsGiftModalOpen(true);
   };
@@ -140,7 +150,10 @@ export default function NoivosPainel({
           name: giftName,
           price: parseFloat(giftPrice),
           category: giftCategory,
-          imageUrl: giftImageUrl
+          imageUrl: giftImageUrl,
+          status: giftStatus,
+          buyerName: giftStatus === 'comprado' ? buyerName : undefined,
+          buyerEmail: giftStatus === 'comprado' ? buyerEmail : undefined
         })
       });
 
@@ -154,6 +167,54 @@ export default function NoivosPainel({
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("A imagem ultrapassou o limite de 5MB.");
+      return;
+    }
+
+    setUploading(true);
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      const base64Data = reader.result as string;
+      try {
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-pin': adminPin
+          },
+          body: JSON.stringify({
+            filename: file.name,
+            contentType: file.type,
+            base64Data
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.imageUrl) {
+            setGiftImageUrl(data.imageUrl);
+          }
+        } else {
+          const errData = await response.json();
+          alert(errData.error || "Erro durante o upload");
+        }
+      } catch (err) {
+        console.error("Erro no upload:", err);
+        alert("Erro de conexão ao enviar imagem.");
+      } finally {
+        setUploading(false);
+      }
+    };
+
+    reader.readAsDataURL(file);
   };
 
   // Handle Delete Gift
@@ -901,6 +962,22 @@ export default function NoivosPainel({
                     </div>
                   </div>
 
+                  {/* Notification Email */}
+                  <div className="space-y-4">
+                    <h4 className="text-xs uppercase font-label tracking-widest text-olive font-bold border-b border-white/5 pb-1">Notificações</h4>
+                    <div>
+                      <label className="block text-[11px] font-label uppercase tracking-widest text-white/50 mb-1.5 font-bold">E-mail de Notificação</label>
+                      <input
+                        type="email"
+                        required
+                        value={settingsForm.notificationEmail || ''}
+                        onChange={(e) => setSettingsForm({ ...settingsForm, notificationEmail: e.target.value })}
+                        className="w-full bg-[#23252a] border border-white/5 rounded-sm p-2.5 text-xs text-white focus:outline-none focus:border-terracotta font-sans"
+                      />
+                      <p className="text-[10px] text-white/40 mt-1">Este e-mail receberá alertas de presença de convidados (RSVP) e presentes comprados.</p>
+                    </div>
+                  </div>
+
                   {/* Admin Secret Pin */}
                   <div className="space-y-4">
                     <h4 className="text-xs uppercase font-label tracking-widest text-olive font-bold border-b border-white/5 pb-1">Segurança</h4>
@@ -1025,15 +1102,80 @@ export default function NoivosPainel({
               </div>
 
               <div>
-                <label className="block text-[10px] font-label uppercase tracking-widest text-white/50 mb-1">URL da Imagem do Produto (Opcional)</label>
-                <input
-                  type="url"
-                  placeholder="Link direto da imagem do produto"
-                  value={giftImageUrl}
-                  onChange={(e) => setGiftImageUrl(e.target.value)}
-                  className="w-full bg-[#23252a] border border-white/5 rounded-sm p-2.5 text-xs text-white focus:outline-none focus:border-terracotta font-mono"
-                />
-                <p className="text-[9px] text-white/40 mt-1">Se deixado em branco, o sistema associará automaticamente uma imagem premium correspondente baseada no nome.</p>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-white/50 mb-1">Imagem do Produto (Upload ou URL)</label>
+                <div className="flex gap-3 items-center">
+                  <label className="cursor-pointer bg-[#23252a] hover:bg-[#2b2e34] border border-white/5 hover:border-white/10 rounded-sm py-2 px-3 text-xs text-white transition-all inline-flex items-center gap-1.5 font-bold uppercase tracking-widest text-[9px] label-text">
+                    <Plus size={10} className="stroke-[3]" />
+                    <span>{uploading ? 'Enviando...' : 'Fazer Upload'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploading}
+                      className="hidden"
+                    />
+                  </label>
+                  {giftImageUrl && (
+                    <div className="w-10 h-10 rounded-sm overflow-hidden border border-white/10 shrink-0">
+                      <img src={giftImageUrl} alt="Preview" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-3">
+                  <span className="block text-[9px] font-label uppercase tracking-widest text-white/40 mb-1">Ou cole o link direto</span>
+                  <input
+                    type="url"
+                    placeholder="Link direto da imagem do produto"
+                    value={giftImageUrl}
+                    onChange={(e) => setGiftImageUrl(e.target.value)}
+                    className="w-full bg-[#23252a] border border-white/5 rounded-sm p-2 text-xs text-white focus:outline-none focus:border-terracotta font-mono text-[11px]"
+                  />
+                </div>
+                <p className="text-[9px] text-white/40 mt-1">Selecione uma imagem de seu dispositivo para fazer upload para o Supabase ou cole um link alternativo.</p>
+              </div>
+
+              {/* Status Selector for manual control */}
+              <div className="border-t border-white/5 pt-3 mt-3 space-y-3">
+                <div>
+                  <label className="block text-[10px] font-label uppercase tracking-widest text-white/50 mb-1">Disponibilidade do Produto</label>
+                  <select
+                    value={giftStatus}
+                    onChange={(e) => setGiftStatus(e.target.value as 'disponivel' | 'comprado')}
+                    className="w-full bg-[#23252a] border border-white/5 rounded-sm text-xs p-2.5 focus:outline-none focus:border-terracotta text-white"
+                  >
+                    <option value="disponivel">Disponível (Pode ser comprado pelos convidados)</option>
+                    <option value="comprado">Comprado (Indispor na lista / comprado em mãos)</option>
+                  </select>
+                </div>
+
+                {giftStatus === 'comprado' && (
+                  <div className="grid grid-cols-2 gap-3 border-l border-terracotta pl-3 py-1 space-y-0 text-white animate-fade-in">
+                    <div className="col-span-2">
+                      <span className="text-[9px] font-label uppercase tracking-widest text-white/40 block">Dados do Comprador (Opcional)</span>
+                    </div>
+                    <div>
+                      <label className="block text-[9px] font-label uppercase tracking-widest text-white/50 mb-1">Nome</label>
+                      <input
+                        type="text"
+                        placeholder="Ex: Convidado Presencial"
+                        value={buyerName}
+                        onChange={(e) => setBuyerName(e.target.value)}
+                        className="w-full bg-[#23252a] border border-white/5 rounded-sm p-2 text-xs text-white focus:outline-none focus:border-terracotta"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[9px] font-label uppercase tracking-widest text-white/50 mb-1">E-mail</label>
+                      <input
+                        type="email"
+                        placeholder="Ex: presencial@casamento.com"
+                        value={buyerEmail}
+                        onChange={(e) => setBuyerEmail(e.target.value)}
+                        className="w-full bg-[#23252a] border border-white/5 rounded-sm p-2 text-xs text-white focus:outline-none focus:border-terracotta"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Action buttons */}

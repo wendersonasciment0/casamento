@@ -13,6 +13,7 @@ export interface WeddingInfo {
   pixHolder: string;
   adminPin: string;
   hasBannerImage?: boolean;
+  notificationEmail?: string;
 }
 
 export interface RSVP {

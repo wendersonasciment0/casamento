@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS public.wedding_info (
     pix_holder text NOT NULL DEFAULT '',
     admin_pin text NOT NULL DEFAULT '1234',
     has_banner_image boolean NOT NULL DEFAULT true,
+    notification_email text NOT NULL DEFAULT 'letielly&wenderson@casamento.com',
     updated_at timestamp with time zone DEFAULT timezone('utc'::text, now())
 );
 
