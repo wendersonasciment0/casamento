@@ -1,0 +1,642 @@
+[
+  {
+    "id": "gift-1",
+    "name": "4 cadeiras",
+    "price": 494.89,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-2",
+    "name": "Açucareiro inox com colher",
+    "price": 90.57,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-3",
+    "name": "Air fryer Oster 4L",
+    "price": 446.92,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-4",
+    "name": "Air fryer Digital Philco",
+    "price": 706.19,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-5",
+    "name": "Aparelho de fondue",
+    "price": 461.77,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1574085733277-851d9d856a3a?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-6",
+    "name": "Aparelho de jantar Cerâmica 20 peças",
+    "price": 1024.85,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-7",
+    "name": "Aparelho de jantar Oxford 16 peças",
+    "price": 306.32,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-8",
+    "name": "Aparelho de jantar Porcelana 20 peças",
+    "price": 546.29,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-9",
+    "name": "Aparelho de jantar Elegance 30 peças",
+    "price": 477.76,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-10",
+    "name": "Aparelho de sopa - 5 peças",
+    "price": 173.95,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-11",
+    "name": "Aparelho Jantar e Chá Porcelana 30 peças",
+    "price": 934.62,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-12",
+    "name": "Adega de Vinhos com Rodas Soft - Brastemp",
+    "price": 283.59,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-13",
+    "name": "Baixela em porcelana",
+    "price": 279.02,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-14",
+    "name": "Balde para gelo com pinça",
+    "price": 112.27,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-15",
+    "name": "Bandeja de café da manhã",
+    "price": 105.42,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-16",
+    "name": "Bandeja inox espelhada",
+    "price": 401.23,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-17",
+    "name": "Batedeira de Bolo Arno",
+    "price": 820.4,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-18",
+    "name": "Batedeira Planetária Mondial 700w",
+    "price": 404.97,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-19",
+    "name": "Bomboniere de Cristal com Tampa",
+    "price": 84.23,
+    "category": "Decoração",
+    "imageUrl": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-20",
+    "name": "Cafeteira Nespresso Vertuo",
+    "price": 420.65,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-21",
+    "name": "Churrasqueira elétrica Mondial",
+    "price": 826.11,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-22",
+    "name": "Espetos Coletor de Gordura Automatic Grill",
+    "price": 409.23,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-23",
+    "name": "Comoda para quarto de casal",
+    "price": 614.82,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-24",
+    "name": "Jogo de Toalhas de Banho Brancas Premium",
+    "price": 123.68,
+    "category": "Cama e Banho",
+    "imageUrl": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-25",
+    "name": "Conjunto de assadeiras de vidro Marinex 4 unidades",
+    "price": 146.42,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-26",
+    "name": "Conjunto de baixelas 9 peças inox",
+    "price": 219.63,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-27",
+    "name": "Conjunto de Panelas em Aço Inox, 10 peças - All-Clad",
+    "price": 956.32,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-28",
+    "name": "Conjunto de ramequins - 6 peças",
+    "price": 135.11,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-29",
+    "name": "Conjunto de Facas Tramontina Premium",
+    "price": 192.22,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-30",
+    "name": "Conjunto de Panelas 5 Peças - Tramontina",
+    "price": 226.49,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-31",
+    "name": "Conjunto para sorvete inox - 13 peças",
+    "price": 249.33,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-32",
+    "name": "Conjunto sushi - 12 peças",
+    "price": 155.67,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-33",
+    "name": "Faqueiro Prochef Tramontina 7 Peças",
+    "price": 1047.69,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-34",
+    "name": "Difusor de Ambientes Home Scent",
+    "price": 123.69,
+    "category": "Decoração",
+    "imageUrl": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-35",
+    "name": "Jogo de Copos 340ml – 6 Peças Oxford",
+    "price": 203.64,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-36",
+    "name": "Cotas de lua de mel - Jantar Romântico",
+    "price": 363.54,
+    "category": "Diversos",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-37",
+    "name": "Cotas de lua de mel - Passeio de Barco",
+    "price": 591.97,
+    "category": "Diversos",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-38",
+    "name": "Faqueiro inox 24 peças",
+    "price": 204.79,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-39",
+    "name": "Faqueiro inox 42 peças Tramontina",
+    "price": 598.83,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-40",
+    "name": "Faqueiro Inox Classic",
+    "price": 365.26,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-41",
+    "name": "Fritadeira Air Fryer Forno Oven 12L",
+    "price": 519.28,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-42",
+    "name": "Fritadeira Elétrica Ultra Air Fryer Sem Óleo",
+    "price": 340.7,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-43",
+    "name": "Fruteira de mesa de cristal",
+    "price": 353.26,
+    "category": "Decoração",
+    "imageUrl": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-44",
+    "name": "Jogo De 6 Taças Para Sobremesa Cristal",
+    "price": 237.91,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-45",
+    "name": "Jogo de 6 xícaras para café Rojemac - Spicy",
+    "price": 306.44,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-46",
+    "name": "Jogo de assadeiras alumínio 3 peças",
+    "price": 280.17,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-47",
+    "name": "Jogo de facas para petiscos - 6 peças",
+    "price": 119.12,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-48",
+    "name": "Jogo de panela antiaderente Rochedo",
+    "price": 363.54,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-49",
+    "name": "Jogo de Panelas Antiaderente Panelux",
+    "price": 477.76,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-50",
+    "name": "Jogo de panelas vermelhas 5 peças",
+    "price": 569.13,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-51",
+    "name": "Jogo de saquetes encaixe - 94 peças",
+    "price": 398.95,
+    "category": "Diversos",
+    "imageUrl": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-52",
+    "name": "Jogo de taças azul para água",
+    "price": 173.95,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-53",
+    "name": "Jogo de travessas de porcelana",
+    "price": 128.26,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-54",
+    "name": "Jogo para churrasco - 24 peças Tramontina",
+    "price": 300.73,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-55",
+    "name": "JOGO TALHER PORTA TALHER CLASSIC 29 PECAS",
+    "price": 186.51,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1543510473-ac2c35329a28?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-56",
+    "name": "Kit churrasqueiro profissional",
+    "price": 686.77,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-57",
+    "name": "Kit de utensílios silicone 12 peças",
+    "price": 141.97,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-58",
+    "name": "Kit mesa de cabeceira retrô - 2 unidades",
+    "price": 477.76,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-59",
+    "name": "Kit sobremesa de vidro - 7 peças",
+    "price": 114.24,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-60",
+    "name": "Lavadora de alta pressão Karcher",
+    "price": 431.96,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1518133680790-3985ecea0ec8?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-61",
+    "name": "Lavadora de alta pressão Electrolux",
+    "price": 721.03,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1518133680790-3985ecea0ec8?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-62",
+    "name": "Lava e seca brastemp 11kg",
+    "price": 3218.91,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-63",
+    "name": "Lava-louça automática 10 serviços",
+    "price": 2346.31,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-64",
+    "name": "Liquidificador com jarra de vidro Oster",
+    "price": 301.87,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-65",
+    "name": "Máquina de fazer pão Mondial",
+    "price": 553.14,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-66",
+    "name": "Mesa de jantar - 4 cadeiras MDF",
+    "price": 488.14,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-67",
+    "name": "Mesa de Passar Tramontina Premium",
+    "price": 237.79,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1518133680790-3985ecea0ec8?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-68",
+    "name": "Mesa Multiuso Preta 91398120 - Tramontina",
+    "price": 111.13,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-69",
+    "name": "Mixer, processador e batedor oster",
+    "price": 328.14,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1578643463396-0997cb5328c1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-70",
+    "name": "Panela Elétrica Electrolux 1,8L",
+    "price": 456.98,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-71",
+    "name": "Parafusadeira e furadeira Bosch",
+    "price": 263.03,
+    "category": "Diversos",
+    "imageUrl": "https://images.unsplash.com/photo-1518133680790-3985ecea0ec8?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-72",
+    "name": "Pipoqueira elétrica sem óleo",
+    "price": 171.46,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-73",
+    "name": "Poltrona decorativa bege",
+    "price": 280.17,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-74",
+    "name": "Purificador de água IBBL",
+    "price": 855.81,
+    "category": "Eletrodomésticos",
+    "imageUrl": "https://images.unsplash.com/photo-1518133680790-3985ecea0ec8?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-75",
+    "name": "Recamier Barcelona em Linho",
+    "price": 430.93,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-76",
+    "name": "Sofá linho 3 lugares",
+    "price": 1128.78,
+    "category": "Móveis",
+    "imageUrl": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-77",
+    "name": "Talheres para Kit Pizza",
+    "price": 124.72,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-78",
+    "name": "Travessa oval porcelana",
+    "price": 82.58,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-79",
+    "name": "Travessa Refrataria Rasa e Funda p/ Lasanha Oxford",
+    "price": 249.32,
+    "category": "Cozinha",
+    "imageUrl": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  },
+  {
+    "id": "gift-80",
+    "name": "Vale-presente Reconstrução do Lar",
+    "price": 363.54,
+    "category": "Diversos",
+    "imageUrl": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=600&q=80",
+    "status": "disponivel"
+  }
+]

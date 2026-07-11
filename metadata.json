@@ -1,0 +1,6 @@
+{
+  "name": "Letielly & Wenderson",
+  "description": "Site de casamento elegante com lista de presentes, confirmação de presença (RSVP) e painel de gestão financeira para os noivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
