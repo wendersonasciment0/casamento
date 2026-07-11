@@ -136,6 +136,13 @@ export default function ListaPresentes({
       return;
     }
 
+    // PIX: just show the Pix screen — the user must copy the key and confirm manually
+    if (paymentMethod === 'pix') {
+      setActiveModal('processing');
+      return;
+    }
+
+    // Card: process immediately
     setActiveModal('processing');
 
     // Prepare simulated gift purchase
@@ -143,16 +150,10 @@ export default function ListaPresentes({
     const finalAmount = isHoneymoonFund ? parseFloat(customAmount) : selectedGift?.price || 0;
     const finalGiftName = isHoneymoonFund ? `Cota de Lua de Mel - Contribuição Flexível` : selectedGift?.name || '';
 
-    // If honeymoon cota, we can either create it or simulate it on a special ID on the server
-    // Since we want this to update general stats on the server, if it is a honeymoon fund, 
-    // we fetch /api/gifts to check if we can simulate purchasing a specific honeymoon cota.
-    // To make it simple, we can make the API call to /api/gifts/:id/buy where :id is the gift ID.
-    // Let's find or buy on the fly.
     let targetGiftId = giftId || '';
     if (isHoneymoonFund) {
-      // Find the first honeymoon fund cota or use any honeymoon gift
       const honeymoonGift = gifts.find(g => g.name.toLowerCase().includes('cota') || g.id.includes('custom-honeymoon'));
-      targetGiftId = honeymoonGift ? honeymoonGift.id : 'gift-36'; // Fallback to item 36 (Cotas de lua de mel!)
+      targetGiftId = honeymoonGift ? honeymoonGift.id : 'gift-36';
     }
 
     try {
@@ -172,7 +173,6 @@ export default function ListaPresentes({
       const responseData = await res.json();
       
       if (res.ok) {
-        // Add emails into local session log list to show the user instantly
         const formattedPrice = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(finalAmount);
         
         const guestEmailSim = {
@@ -180,7 +180,7 @@ export default function ListaPresentes({
           recipient: buyerEmail,
           subject: `[Casamento de Letielly & Wenderson] Obrigado pelo seu presente! 🎁`,
           sender: `Letielly & Wenderson <casamento@noivos.com>`,
-          body: `Olá ${buyerName},\n\nAgradecemos imensamente pelo seu gesto de carinho ao nos presentear com:\n🎁 ${finalGiftName} (${formattedPrice})\n\nSua contribuição via ${paymentMethod === 'pix' ? 'PIX' : 'Cartão de Crédito'} foi confirmada e convertida em saldo para nossa Lua de Mel e montagem do nosso novo lar.\n\nSua presença é o nosso maior presente!\n\nCom carinho,\nLetielly & Wenderson`
+          body: `Olá ${buyerName},\n\nAgradecemos imensamente pelo seu gesto de carinho ao nos presentear com:\n🎁 ${finalGiftName} (${formattedPrice})\n\nSua contribuição via Cartão de Crédito foi confirmada!\n\nCom carinho,\nLetielly & Wenderson`
         };
 
         const coupleEmailSim = {
@@ -192,11 +192,9 @@ export default function ListaPresentes({
         };
 
         setSessionEmails(prev => [coupleEmailSim, guestEmailSim, ...prev]);
-
-        // Success state
         setActiveModal('success');
-        fetchGifts(); // reload gifts status
-        onPurchaseSuccess(); // notify parent
+        fetchGifts();
+        onPurchaseSuccess();
       } else {
         alert(responseData.error || 'Ocorreu um erro ao processar o pagamento.');
         setActiveModal('payment_form');
@@ -683,19 +681,23 @@ export default function ListaPresentes({
             {activeModal === 'processing' && (
               <div className="p-8 text-center space-y-6">
                 {paymentMethod === 'pix' ? (
-                  <div className="space-y-6">
-                    <h3 className="font-serif text-lg font-medium text-charcoal">Efetue o pagamento via PIX Simulado</h3>
-                    
+                  <div className="space-y-5">
+                    <div>
+                      <h3 className="font-serif text-lg font-medium text-charcoal">Pagamento via PIX</h3>
+                      <p className="text-xs text-charcoal/60 font-sans mt-1">
+                        Copie a chave abaixo, realize o pagamento no seu banco e depois clique em <strong>Confirmar</strong>.
+                      </p>
+                    </div>
+
                     {/* Simulated elegant QR code visual box */}
-                    <div className="mx-auto w-48 h-48 bg-white border-2 border-olive/15 p-2 rounded-sm relative flex items-center justify-center">
-                      <img 
-                        src="https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=250&q=80" 
-                        alt="QR Code Simulado" 
+                    <div className="mx-auto w-40 h-40 bg-white border-2 border-olive/15 p-2 rounded-sm relative flex items-center justify-center">
+                      <img
+                        src="https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?auto=format&fit=crop&w=250&q=80"
+                        alt="QR Code Simulado"
                         className="w-full h-full object-cover opacity-10 filter grayscale select-none"
                       />
                       <div className="absolute inset-0 flex flex-col items-center justify-center p-4 bg-white/90">
-                        {/* Custom visual SVG mimicking a luxury QR code */}
-                        <div className="w-28 h-28 border-4 border-charcoal p-1.5 bg-white grid grid-cols-3 gap-1">
+                        <div className="w-24 h-24 border-4 border-charcoal p-1.5 bg-white grid grid-cols-3 gap-1">
                           <div className="bg-charcoal w-6 h-6 border" />
                           <div className="bg-transparent" />
                           <div className="bg-charcoal w-6 h-6 border" />
@@ -709,30 +711,29 @@ export default function ListaPresentes({
                       </div>
                     </div>
 
-                    <p className="text-xs text-charcoal/70 max-w-sm mx-auto font-sans leading-relaxed">
-                      Escaneie o QR Code acima usando o app do seu banco ou utilize a chave copia e cola abaixo.
-                    </p>
-
                     {/* Copy paste input action */}
-                    <div className="flex items-center gap-2 max-w-sm mx-auto">
-                      <input
-                        type="text"
-                        readOnly
-                        value={pixKey}
-                        className="bg-[#F5EFEB] border border-olive/10 px-3 py-2 text-xs rounded-sm w-full font-mono text-charcoal select-all"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleCopyPix}
-                        className="p-2.5 bg-olive hover:bg-olive/90 text-white rounded-sm shrink-0 transition-all"
-                        title="Copiar Chave"
-                      >
-                        {copied ? <Check size={14} /> : <Copy size={14} />}
-                      </button>
+                    <div className="max-w-sm mx-auto space-y-2">
+                      <p className="text-[11px] font-label uppercase tracking-widest text-olive font-semibold text-left">Chave PIX — Copiar e Colar</p>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          readOnly
+                          value={pixKey}
+                          className="bg-[#F5EFEB] border border-olive/20 px-3 py-2.5 text-xs rounded-sm w-full font-mono text-charcoal select-all"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleCopyPix}
+                          className="p-2.5 bg-olive hover:bg-olive/90 text-white rounded-sm shrink-0 transition-all"
+                          title="Copiar Chave"
+                        >
+                          {copied ? <Check size={14} /> : <Copy size={14} />}
+                        </button>
+                      </div>
+                      {copied && <p className="text-[10px] text-olive font-bold uppercase tracking-wider">✓ Chave copiada para o clipboard!</p>}
                     </div>
-                    {copied && <p className="text-[10px] text-olive font-bold uppercase tracking-wider animate-bounce">Chave Copiada para o clipboard!</p>}
 
-                    <div className="border-t border-olive/10 pt-6 mt-6">
+                    <div className="border-t border-olive/10 pt-5 space-y-3">
                       <p className="text-[11px] font-label text-charcoal/50 uppercase tracking-widest mb-3">Ambiente de Testes Simulado</p>
                       <button
                         type="button"
@@ -785,9 +786,16 @@ export default function ListaPresentes({
                             console.error(err);
                           }
                         }}
-                        className="w-full bg-olive hover:bg-olive/90 text-white font-label tracking-widest text-xs uppercase font-bold py-3 px-4 rounded-sm"
+                        className="w-full bg-terracotta hover:bg-terracotta-hover text-white font-label tracking-widest text-xs uppercase font-bold py-3 px-4 rounded-sm"
                       >
-                        CONFIRMAR PAGAMENTO SIMULADO (PIX)
+                        ✓ JÁ PAGUEI — CONFIRMAR PRESENTE
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setActiveModal('payment_form')}
+                        className="w-full border border-olive/30 text-charcoal/60 hover:text-charcoal hover:border-olive/60 font-label tracking-widest text-xs uppercase py-2.5 px-4 rounded-sm transition-all"
+                      >
+                        ← Voltar ao formulário
                       </button>
                     </div>
                   </div>
