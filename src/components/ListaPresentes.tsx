@@ -258,55 +258,55 @@ export default function ListaPresentes({
         </div>
 
         {/* 2. SEARCH AND FILTER CONTROLS */}
-        <div className="bg-[#F5EFEB] p-4 sm:p-6 rounded-sm mb-10 border border-olive/10 shadow-sm space-y-4">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            {/* Category Chips Container */}
-            <div className="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 scrollbar-none">
-              {categories.map((cat) => {
-                const active = selectedCategory.toUpperCase() === cat.toUpperCase();
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => handleCategorySelect(cat)}
-                    className={`px-4 py-2 text-xs font-label uppercase tracking-wider rounded-sm transition-all shrink-0 border ${
-                      active 
-                        ? 'bg-terracotta text-white border-terracotta font-semibold' 
-                        : 'bg-white text-charcoal/70 border-olive/15 hover:border-terracotta hover:text-terracotta'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              })}
-            </div>
+        <div className="bg-[#F5EFEB] p-4 sm:p-6 rounded-sm mb-10 border border-olive/10 shadow-sm space-y-3">
 
-            {/* Search Input & Sort Order bar */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0">
-              <div className="relative w-full sm:w-64">
-                <input
-                  type="text"
-                  placeholder="Buscar presente..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  className="w-full bg-white border border-olive/20 pl-10 pr-4 py-2 rounded-sm text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors font-sans"
-                />
-                <Search className="absolute left-3.5 top-2.5 text-charcoal/40" size={16} />
-              </div>
-
-              <select
-                value={sortOrder}
-                onChange={(e) => {
-                  setSortOrder(e.target.value as any);
-                  setCurrentPage(1);
-                }}
-                className="bg-white border border-olive/20 rounded-sm text-xs py-2 px-3 focus:outline-none focus:border-terracotta text-charcoal"
-              >
-                <option value="default">ORDENAR POR (PADRÃO)</option>
-                <option value="price_asc">MENOR PREÇO</option>
-                <option value="price_desc">MAIOR PREÇO</option>
-              </select>
-            </div>
+          {/* Category Tabs — full-width scrollable row */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {categories.map((cat) => {
+              const active = selectedCategory.toUpperCase() === cat.toUpperCase();
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategorySelect(cat)}
+                  className={`px-4 py-2 text-xs font-label uppercase tracking-wider rounded-sm transition-all shrink-0 border ${
+                    active
+                      ? 'bg-terracotta text-white border-terracotta font-semibold'
+                      : 'bg-white text-charcoal/70 border-olive/15 hover:border-terracotta hover:text-terracotta'
+                  }`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
+
+          {/* Search + Sort — second row */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative w-full sm:w-64">
+              <input
+                type="text"
+                placeholder="Buscar presente..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="w-full bg-white border border-olive/20 pl-10 pr-4 py-2 rounded-sm text-sm text-charcoal focus:outline-none focus:border-terracotta transition-colors font-sans"
+              />
+              <Search className="absolute left-3.5 top-2.5 text-charcoal/40" size={16} />
+            </div>
+
+            <select
+              value={sortOrder}
+              onChange={(e) => {
+                setSortOrder(e.target.value as any);
+                setCurrentPage(1);
+              }}
+              className="bg-white border border-olive/20 rounded-sm text-xs py-2 px-3 focus:outline-none focus:border-terracotta text-charcoal"
+            >
+              <option value="default">ORDENAR POR (PADRÃO)</option>
+              <option value="price_asc">MENOR PREÇO</option>
+              <option value="price_desc">MAIOR PREÇO</option>
+            </select>
+          </div>
+
 
           {/* Price Range inputs row */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-3 border-t border-olive/10">
