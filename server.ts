@@ -46,8 +46,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // MIGRATION & SEEDING HELPERS (Para ler arquivos locais e importar para o Supabase)
 // ==========================================
 const DATA_DIR = path.join(process.cwd(), "data");
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+if (!process.env.VERCEL) {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
 }
 
 function getFilePath(filename: string): string {
