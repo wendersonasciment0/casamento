@@ -44,80 +44,86 @@ export default function Header({
   return (
     <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-olive/10 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => handleNav('inicio')}>
+        <div className="grid grid-cols-3 items-center h-20">
+          {/* Left spacer (mirrors the right-side nav width on desktop) */}
+          <div className="flex-1 hidden md:block" />
+
+          {/* Logo — centered */}
+          <div className="flex items-center justify-start md:justify-center cursor-pointer" onClick={() => handleNav('inicio')}>
             <span className="font-serif italic text-2xl sm:text-3xl text-terracotta font-semibold tracking-wide">
-              {noivaName} & {noivoName}
+              {noivaName} &amp; {noivoName}
             </span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => {
-              const active = currentTab === item.id;
-              return (
+          {/* Right column: Desktop Nav + Mobile Menu Button */}
+          <div className="flex items-center justify-end gap-6">
+            {/* Desktop nav items */}
+            <div className="hidden md:flex items-center gap-6">
+              {menuItems.map((item) => {
+                const active = currentTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNav(item.id)}
+                    className={`label-text text-xs tracking-widest transition-all relative py-2 px-1 ${
+                      active ? 'text-terracotta font-semibold' : 'text-charcoal/70 hover:text-terracotta'
+                    }`}
+                  >
+                    {item.label}
+                    {active && (
+                      <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-terracotta rounded-full" />
+                    )}
+                  </button>
+                );
+              })}
+
+              {isAdmin && (
                 <button
-                  key={item.id}
-                  onClick={() => handleNav(item.id)}
+                  onClick={() => handleNav('noivos-painel')}
                   className={`label-text text-xs tracking-widest transition-all relative py-2 px-1 ${
-                    active ? 'text-terracotta font-semibold' : 'text-charcoal/70 hover:text-terracotta'
+                    currentTab === 'noivos-painel' ? 'text-terracotta font-semibold' : 'text-olive hover:text-terracotta'
                   }`}
                 >
-                  {item.label}
-                  {active && (
-                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-terracotta rounded-full" />
-                  )}
+                  Painel Noivos 👑
                 </button>
-              );
-            })}
+              )}
 
-            {isAdmin && (
-              <button
-                onClick={() => handleNav('noivos-painel')}
-                className={`label-text text-xs tracking-widest transition-all relative py-2 px-1 ${
-                  currentTab === 'noivos-painel' ? 'text-terracotta font-semibold' : 'text-olive hover:text-terracotta'
-                }`}
-              >
-                Painel Noivos 👑
-              </button>
-            )}
+              {isAdmin ? (
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-1 border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition-all text-xs tracking-wider uppercase font-semibold py-2 px-4 rounded-sm label-text"
+                >
+                  <LogOut size={14} />
+                  <span>Sair</span>
+                </button>
+              ) : (
+                <button
+                  onClick={onOpenLogin}
+                  className="flex items-center space-x-1 bg-terracotta hover:bg-terracotta-hover text-white transition-all text-xs tracking-wider uppercase font-semibold py-2 px-4 rounded-sm label-text"
+                >
+                  <Lock size={14} />
+                  <span>Entrar</span>
+                </button>
+              )}
+            </div>
 
-            {isAdmin ? (
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center space-x-3">
+              {isAdmin && (
+                <button
+                  onClick={() => handleNav('noivos-painel')}
+                  className="p-2 text-olive font-medium text-xs bg-olive-light/30 rounded-sm"
+                >
+                  Painel
+                </button>
+              )}
               <button
-                onClick={handleLogout}
-                className="flex items-center space-x-1 border border-terracotta text-terracotta hover:bg-terracotta hover:text-white transition-all text-xs tracking-wider uppercase font-semibold py-2 px-4 rounded-sm label-text"
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-charcoal hover:text-terracotta p-2 focus:outline-none"
               >
-                <LogOut size={14} />
-                <span>Sair</span>
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
-            ) : (
-              <button
-                onClick={onOpenLogin}
-                className="flex items-center space-x-1 bg-terracotta hover:bg-terracotta-hover text-white transition-all text-xs tracking-wider uppercase font-semibold py-2 px-4 rounded-sm label-text"
-              >
-                <Lock size={14} />
-                <span>Entrar</span>
-              </button>
-            )}
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-3">
-            {isAdmin && (
-              <button
-                onClick={() => handleNav('noivos-painel')}
-                className="p-2 text-olive font-medium text-xs bg-olive-light/30 rounded-sm"
-              >
-                Painel
-              </button>
-            )}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-charcoal hover:text-terracotta p-2 focus:outline-none"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            </div>
           </div>
         </div>
       </div>
