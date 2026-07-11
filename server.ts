@@ -15,6 +15,20 @@ const PORT = Number(process.env.PORT || 3001);
 
 app.use(express.json());
 
+// Middleware para semear o banco sob demanda na primeira requisição de API
+let isSeeded = false;
+app.use(async (req, res, next) => {
+  if (!isSeeded && req.path.startsWith("/api")) {
+    try {
+      await seedDatabaseIfNeeded();
+      isSeeded = true;
+    } catch (seedErr) {
+      console.error("Falha ao configurar a semeadura inicial do banco:", seedErr);
+    }
+  }
+  next();
+});
+
 // Inicializar cliente do Supabase
 const supabaseUrl = process.env.SUPABASE_URL || "https://kfdyekcvaeurbscdvhyd.supabase.co";
 // Usa chave Service Role se disponível para saltar RLS com segurança administrativa, ou Anon Key como fallback secundário
@@ -843,13 +857,6 @@ app.get("/api/purchases", async (req, res) => {
 // VITE / STATIC MIDDLEWARES
 // ==========================================
 async function startServer() {
-  // Sincronizar dados locais com o Supabase antes de aceitar requisições
-  try {
-    await seedDatabaseIfNeeded();
-  } catch (seedErr) {
-    console.error("Falha ao configurar a semeadura inicial do banco:", seedErr);
-  }
-
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -869,4 +876,9 @@ async function startServer() {
   });
 }
 
-startServer();
+// Exportar o app para a Vercel
+export default app;
+
+if (!process.env.VERCEL) {
+  startServer();
+}
